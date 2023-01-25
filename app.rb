@@ -35,11 +35,11 @@ def save_prompt_to_db(readme_content, url)
 
   DB[:LangChainPrompt].insert(
     id: SecureRandom.uuid,
-    prompt: CGI.escape(prompt_info), # Doing this to preserve the newlines in the prompt
+    prompt: prompt_info, # Doing this to preserve the newlines in the prompt
     githubPath: url,
     name: name,
-    description: description.gsub("\n", ' '), # Remove newlines from the description
-    readme: CGI.escape(decoded_readme)
+    description: description.gsub("\n", ' '), # Remove newlines from the description as they are leftovers
+    readme: decoded_readme
   )
 end
 
