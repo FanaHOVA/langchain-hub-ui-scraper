@@ -27,7 +27,11 @@ def save_prompt_to_db(readme_content, url)
 
   name = decoded_readme.split("\n").first.gsub('# Description of ', '') # Name of the prompt is always in the first line of the README
   prompt_info = decoded_readme.split("## Inputs").last # All READMEs split the description from the inputs with a "## Inputs" header
-  description = decoded_readme.gsub(name, '').gsub(prompt_info, '') # Remove the name and prompt info from the README to get the description
+  description = decoded_readme # Remove the name and prompt info from the README to get the description
+                  .gsub(name, '')
+                  .gsub(prompt_info, '')
+                  .gsub('## Inputs', '') # Ugly af, but it works. Not even Copilot Labs had any suggestions for this
+                  .gsub('# Description of ', '') 
 
   DB[:LangChainPrompt].insert(
     id: SecureRandom.uuid,
