@@ -102,7 +102,7 @@ get '/update' do
         
     go_through_folder(prompt, client, :agent)
   rescue => e # We just want to catch any errors and move on to the next one 
-    puts "Error with a prompt: #{e.inspect}"
+    puts "Error with an agent: #{e.inspect}"
     next
   end
 
